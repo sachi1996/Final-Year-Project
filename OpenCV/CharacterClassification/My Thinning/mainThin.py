@@ -1,0 +1,29 @@
+import cv2
+import numpy as np
+import thinning
+import matplotlib.pyplot as plt
+
+img = cv2.imread('F:/SpellReaders/Datasets/By Class Dataset/by_class/6b-k/hsf_1/hsf_1_00034.png', 0)
+retval, orig_thresh = cv2.threshold(img, 200, 255, cv2.THRESH_BINARY)
+bin_thresh = (orig_thresh == 0).astype(int)
+
+# convert all ones (black pixels) to zeroes, and all zeroes (white pixels) to ones
+thresh = (thinning.thinned_thresh == 0).astype(np.uint8)
+# convert ones to 255 (white)
+thresh *= 255
+
+# Resize the image
+orig_threshR = cv2.resize(img, (500, 700))
+threshR = cv2.resize(thresh, (500, 700))
+
+
+# display original and thinned images
+name = plt.imshow(img)
+plt.title("Before Thinning")
+plt.show()
+
+# display original and thinned images
+name = plt.imshow(thresh)
+plt.title("After Thinning")
+plt.show()
+
